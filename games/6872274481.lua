@@ -17756,7 +17756,7 @@ run(function()
 					end		
 					local attacked, sword, meta = {}, getAttackData()
 					Attacking = false
-					store.KillauraTarget = nil = nil
+					store.KillauraTarget = nil
 					if sword then
 						if SC.Enabled and entitylib.isAlive and lplr.Character:FindFirstChild("elk") then continue end
 						local plrs = entitylib.AllPosition({
@@ -17787,7 +17787,7 @@ run(function()
 
 								if not Attacking then
 									Attacking = true
-									store.KillauraTarget = nil = v
+									store.KillauraTarget = v
 									if not Swing.Enabled and AnimDelay < tick() and not LegitAura.Enabled then
 										AnimDelay = tick() + (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or math.max(ChargeTime.Value, 0.11))
 										if not LegitAura.Enabled then
@@ -17859,7 +17859,7 @@ run(function()
 					task.wait(1 / UpdateRate.Value)
 				until not OldKA.Enabled
 			else
-				store.KillauraTarget = nil = nil
+				store.KillauraTarget = nil
 				for _, v in Boxes do
 					v.Adornee = nil
 				end
