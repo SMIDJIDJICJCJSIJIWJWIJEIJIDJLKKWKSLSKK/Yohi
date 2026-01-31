@@ -14483,7 +14483,7 @@ run(function()
 	local PromptDuration
 	local Duration
 	if not fireproximityprompt then
-		vape:CreateNotification("Onyx",	`{(identifyexecutor()})[1] does not support Fireproximityprompt for Prompt Duration.`,3,'alert')
+		--vape:CreateNotification("Onyx",	`{(identifyexecutor()})[1] does not support Fireproximityprompt for Prompt Duration.`,3,'alert')
 		return
 	end
 	PromptDuration = vape.Categories.Exploits:CreateModule({
