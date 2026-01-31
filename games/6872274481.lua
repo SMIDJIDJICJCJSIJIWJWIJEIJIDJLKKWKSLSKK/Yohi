@@ -17478,11 +17478,13 @@ run(function()
 		Tooltip = 'Automatically uses kit abilities.'
 	})
 	Legit = AutoKit:CreateToggle({Name = 'Legit'})
-	local list = {}
-	for i, v in sortmethods do
-		table.insert(list,v)
-	end
-	Sorts = AutoKit:CreateDropdown({Name = 'Sort',List=list})
+	local methods = {'Damage', 'Distance'}
+	for i in sortmethods do
+		if not table.find(methods, i) then
+			table.insert(methods, i)
+		end
+	end			
+	Sorts = AutoKit:CreateDropdown({Name = 'Sort',List=methods})
 end)
 
 run(function()
@@ -18138,97 +18140,6 @@ run(function()
 		end
 	})	
 end)
-
-
-
---[[run(function()
-	local BetterGing
-	local AutoSwitch
-	local Limits
-	local AutoPlace
-	local AutoBreak
-	local BreakDelay
-	BetterGing = vape.Categories.Kits:CreateModule({
-		Name = 'BetterGinger',
-		Function = function(callback)
-
-		end
-	})
-	Limits = BetterGing:CreateToggle({Name='Limit to item',Default=true})
-	AutoSwitch = BetterGing:CreateToggle({Name='Auto Switch',Default=false})		
-	AutoPlace = BetterGing:CreateToggle({Name='Auto Place',Default=false})	
-	AutoBreak = BetterGing:CreateToggle({Name='Auto Break',Default=true})		
-	BreakDelay = BetterGing:CreateSlider({
-		Name = 'Delay',
-		Min = 0,
-		Max = 1,
-		Decimal = 5
-	})
-end)
-
-
-run(function()
-	local BetterBee
-	local maxHiveThreshold = 10
-	local DepoRange 
-	local AutoDeposit
-	local AutoCollect
-	local ColRange
-	local Limits
-	local Delay
-	local StreamerMode
-	BetterBee = vape.Categories.Kits:CreateModule({
-		Name = 'BetterBee',
-		Function = function(callback)
-			if callback then
-
-			else
-
-			end
-		end
-	})
-	DepoRange = BetterBee:CreateSlider({
-		Name = "Deposit Range",
-		Min = 0,
-		Max = 12,
-		Default = 6,
-		Suffix = "studs",
-		Darker = true
-	})
-	ColRange = BetterBee:CreateSlider({
-		Name = "Collect Range",
-		Min = 0,
-		Max = 16,
-		Default = 8,
-		Suffix = "studs",
-		Darker = true
-	})
-	Delay = BetterBee:CreateTwoSlider({
-		Name = "Delay",
-		Min = 0,
-		Max = 2,
-		Decimal = 5,
-		DefaultMax = 1,
-		DefaultMin = 0,
-		Suffix = 's'
-	})
-	AutoDeposit = BetterBee:CreateToggle({
-		Name = "Auto Deposit",
-		Default = true,
-		Function = function(db)
-			DepoRange.Object.Visible = (db)
-		end
-	})
-	AutoCollect = BetterBee:CreateToggle({
-		Name = "Auto Collect",
-		Default = true,
-		Function = function(db)
-			ColRange.Object.Visible = (db)
-		end
-	})
-	Limits = BetterBee:CreateToggle({Name='Limit to items',Default=false})
-	StreamerMode = BetterBee:CreateToggle({Name='Streamer Mode',Default=false})
-end)--]]
 
 Tun(function() -- keep this if ur a dev this disables speed n fly whenever you anti cheat
 	if not isnetworkowner(entitylib.character.RootPart) then
