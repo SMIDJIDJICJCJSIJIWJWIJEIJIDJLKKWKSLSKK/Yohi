@@ -3,7 +3,7 @@ if shared.vape then shared.vape:Uninject() end
 local WL = true
 local UNI = getgenv().DisableUNI
 if UNI == nil then
-	UNI = true
+	UNI = false
 end
 -- POV SHITTY EXECUTORS POV
 if table.find({'Volt'}, ({identifyexecutor()})[1]) then
