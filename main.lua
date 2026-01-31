@@ -151,9 +151,10 @@ end)
 if not shared.VapeIndependent then
 	task.spawn(function()
 		if UNI then
-			loadstring(downloadFile('ReVape/games/universal.lua'), 'universal')()
+			task.wait(0.0001)
 		else
-			task.wait(0.0001)		
+			loadstring(downloadFile('ReVape/games/universal.lua'), 'universal')()
+					
 		end
 	end)
 	task.spawn(function()
