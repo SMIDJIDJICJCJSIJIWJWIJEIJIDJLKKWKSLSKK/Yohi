@@ -10788,7 +10788,7 @@ run(function()
 				end
 			elseif Types.Value == "LagBased" then
 				local LastTP = lplr:GetAttribute('LastTeleport') or (os.time() - 2)
-				local dec = + (math.random() + Random.new():NextNumber(2,4))
+				local dec = 1 + (math.random() + Random.new():NextNumber(2,4))
 				LastTP = LastTP + dec
 				if os.time() - LastTP < 2 then
 					finalLag = finalLag * (1 + 3 * 0.8)
