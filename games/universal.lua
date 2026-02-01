@@ -8217,6 +8217,10 @@ run(function()
 		ProfileButton.Activated:Connect(function()
             createPopup(values,ProfilesGUI,ProfileFrame)
         end)
+		task.defer(function()
+			addProfile(ProfileFrame)
+			sortProfiles(sorted)
+		end)
     end
 
 	local function resetProfiles()
@@ -8261,6 +8265,7 @@ run(function()
 					createProfile(configData, prnt)
 				end
 			end
+			print("Profiles registered:", #profiles) -- debugging
 
 		elseif method == "POST" then
 			local body = httpService:JSONEncode({
@@ -8427,15 +8432,14 @@ run(function()
                 createS(back,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
                 create("TextLabel",{Parent=back,BackgroundTransparency=1,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
 
-                local function updateDisplay()
-				    local query = search.Text:lower()
-				    for _, profile in ipairs(profiles) do
-				        local match = profile.Name:lower():find(query) or profile.Username:lower():find(query)
-				        profile.Frame.Visible = match ~= nil
-				    end
+				local function updateDisplay()
+					local query = search.Text:lower()
+					for _, profile in ipairs(profiles) do
+						local match = profile.Name:lower():find(query) or profile.Username:lower():find(query)
+						profile.Frame.Visible = match ~= nil
+					end
 					sortProfiles(sorted)
 				end
-
 
                 local function updatePN()
                     Option.ProfileName = searchV2.Text
@@ -8474,23 +8478,6 @@ run(function()
                     TweenController(old, TweenInfo.new(0.95, Enum.EasingStyle.Sine), {BackgroundTransparency = 0})
                     TweenController(old.TextLabel, TweenInfo.new(0.55, Enum.EasingStyle.Sine), {TextColor3 = Color3.fromRGB(255, 255, 255)})
                 end)
-				for _, v in ipairs(Children:GetChildren()) do
-				    if v:IsA("Frame") and v:GetAttribute("IsProfile") then
-				        addProfile(v)
-				    end
-				end
-				
-				Children.ChildAdded:Connect(function(child)
-				    if child:IsA("Frame") and child:GetAttribute("IsProfile") then
-				        addProfile(child)
-				        updateDisplay()
-				        sortProfiles(sorted)
-				    end
-				end)
-
-
-
-
 				createButton.Activated:Connect(function()
 					MainFrame.Visible = false
 					CreateFrame.Visible = true
