@@ -8130,7 +8130,30 @@ run(function()
             end
         end
     end
+	local function createProfile(values,prnt)
+        local user = values.name
+        local date = values.created
+        local Name = values.profileName
+        local profile = values.profile
+        local ProfileFrame = create("Frame",{BackgroundColor3=Color3.fromRGB(31,29,31);Name='Profile';Parent=prnt})
+        create("UICorner",{CornerRadius=UDim.new(0,4);Parent=ProfileFrame})
+        local ProfileButton = create("TextButton",{BackgroundColor3=Color3.fromRGB(24,22,24),TextColor3=Color3.fromRGB(155,155,155),TextSize=8;Position=UDim2.fromScale(0.032,0.057);Size=UDim2.fromScale(0.937,0.886);Font=uipallet.Font;Text='@'..user;Parent=ProfileFrame;TextColor3=Color3.fromRGB(155,155,155);TextSize=8})
 
+        create("UICorner",{CornerRadius=UDim.new(0,4);Parent=ProfileButton})
+        task.wait(0.005)
+        create("TextLabel",{Name='date';Parent=ProfileButton;BackgroundTransparency=1;Position=UDim2.fromScale(0,0.845);Size=UDim2.new(1,0,0.153,0);Font=uipallet.Font;Text='created '..date;TextColor3=Color3.fromRGB(71,71,71);TextSize=12})
+        task.wait(0.005)
+        create("TextLabel",{Name='user';Parent=ProfileButton;BackgroundTransparency=1;Position=UDim2.fromOffset(0,0.064);Size=UDim2.new(1,0,0.33,0);Font=uipallet.Font;Text=Name;TextSize=14;TextColor3=Color3.fromRGB(255,255,255)})
+        ProfileFrame:SetAttribute("Profile",profile)
+        
+		ProfileButton.Activated:Connect(function()
+            createPopup(values,ProfilesGUI,ProfileFrame)
+        end)
+    end
+
+	local function resetProfiles()
+		table.clear(profiles)
+	end
 	local function RequestURL(method, prnt)
 		local URL = "https://configclient.fsl58.workers.dev/configs"
 
@@ -8166,7 +8189,7 @@ run(function()
 				}
 
 				if configData.See then
-					print(configData,prnt)																																																																						
+																																																																									
 					createProfile(configData, prnt)
 				end
 			end
@@ -8266,30 +8289,7 @@ run(function()
         end)
 	end
 
-    local function createProfile(values,prnt)
-        local user = values.name
-        local date = values.created
-        local Name = values.profileName
-        local profile = values.profile
-        local ProfileFrame = create("Frame",{BackgroundColor3=Color3.fromRGB(31,29,31);Name='Profile';Parent=prnt})
-        create("UICorner",{CornerRadius=UDim.new(0,4);Parent=ProfileFrame})
-        local ProfileButton = create("TextButton",{BackgroundColor3=Color3.fromRGB(24,22,24),TextColor3=Color3.fromRGB(155,155,155),TextSize=8;Position=UDim2.fromScale(0.032,0.057);Size=UDim2.fromScale(0.937,0.886);Font=uipallet.Font;Text='@'..user;Parent=ProfileFrame;TextColor3=Color3.fromRGB(155,155,155);TextSize=8})
-
-        create("UICorner",{CornerRadius=UDim.new(0,4);Parent=ProfileButton})
-        task.wait(0.005)
-        create("TextLabel",{Name='date';Parent=ProfileButton;BackgroundTransparency=1;Position=UDim2.fromScale(0,0.845);Size=UDim2.new(1,0,0.153,0);Font=uipallet.Font;Text='created '..date;TextColor3=Color3.fromRGB(71,71,71);TextSize=12})
-        task.wait(0.005)
-        create("TextLabel",{Name='user';Parent=ProfileButton;BackgroundTransparency=1;Position=UDim2.fromOffset(0,0.064);Size=UDim2.new(1,0,0.33,0);Font=uipallet.Font;Text=Name;TextSize=14;TextColor3=Color3.fromRGB(255,255,255)})
-        ProfileFrame:SetAttribute("Profile",profile)
-        
-		ProfileButton.Activated:Connect(function()
-            createPopup(values,ProfilesGUI,ProfileFrame)
-        end)
-    end
-
-	local function resetProfiles()
-		table.clear(profiles)
-	end
+    
 
 
     Configs = vape.Categories.Exploits:CreateModule({
