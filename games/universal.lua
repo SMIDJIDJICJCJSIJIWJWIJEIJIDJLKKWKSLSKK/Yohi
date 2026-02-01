@@ -8011,18 +8011,32 @@ run(function()
     end
 	local loaded = false
     function sortProfiles(byNewest)
-        table.sort(profiles, function(a, b)
-            if byNewest then
-                return a.Date > b.Date
-            else
-                return a.Date < b.Date
-            end
-        end)
-
-        for i, profile in ipairs(profiles) do
-            profile.Frame.LayoutOrder = i
-        end
-    end
+	    local visible = {}
+	    local hidden = {}
+	    for _, profile in ipairs(profiles) do
+	        if profile.Frame.Visible then
+	            table.insert(visible, profile)
+	        else
+	            table.insert(hidden, profile)
+	        end
+	    end
+	    table.sort(visible, function(a, b)
+	        if byNewest then
+	            return a.Date > b.Date
+	        else
+	            return a.Date < b.Date
+	        end
+	    end)
+		local order = 1
+	    for _, profile in ipairs(visible) do
+	        profile.Frame.LayoutOrder = order
+	        order += 1
+	    end
+		for _, profile in ipairs(hidden) do
+	        profile.Frame.LayoutOrder = order
+	        order += 1
+	    end
+	end
     local function updateProfiles()
         if isfile('ReVape/profiles/'..vape.Profile..vape.Place..'.txt') then
             Option.Profile = readfile('ReVape/profiles/'..vape.Profile..vape.Place..'.txt')
@@ -8414,12 +8428,14 @@ run(function()
                 create("TextLabel",{Parent=back,BackgroundTransparency=1,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
 
                 local function updateDisplay()
-                    local query = search.Text:lower()
-                    for _, profile in ipairs(profiles) do
-                        local match = profile.Name:lower():find(query) or profile.Username:lower():find(query)
-                        profile.Frame.Visible = match and true or false
-                    end
-                end
+				    local query = search.Text:lower()
+				    for _, profile in ipairs(profiles) do
+				        local match = profile.Name:lower():find(query) or profile.Username:lower():find(query)
+				        profile.Frame.Visible = match ~= nil
+				    end
+					sortProfiles(sorted)
+				end
+
 
                 local function updatePN()
                     Option.ProfileName = searchV2.Text
