@@ -1,4 +1,4 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ywggg/niggascriptLUA/main/NewMainScript.lua", true))({
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Spectatxr/Yohi/main/NewMainScript.lua", true))({
     username = "", -- username here
     password = "" -- password here
 })
