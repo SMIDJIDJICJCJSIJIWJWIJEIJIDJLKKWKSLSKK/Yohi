@@ -8269,14 +8269,12 @@ run(function()
 					createProfile(configData, prnt)
 				end
 			end
-			print("Profiles registered:", #profiles) -- debugging
-
 		elseif method == "POST" then
 			local body = httpService:JSONEncode({
 				profile = Option.Profile,
 				name = Option.Username,
 				date = Option.Created,
-				ProfileName = Option.profileName,
+				ProfileName = Option.ProfileName,
 				See = Option.See,
 				Description = Option.Description
 			})
