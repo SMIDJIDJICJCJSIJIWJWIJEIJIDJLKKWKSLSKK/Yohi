@@ -11,7 +11,7 @@ local isfile = isfile or function(file)
 	end)
 	return suc and res ~= nil and res ~= ''
 end
-local function downloadFile(swpath, func)
+local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
 			return game:HttpGet('https://raw.githubusercontent.com/ywggg/niggascriptLUA/'..readfile('ReVape/profiles/commit.txt')..'/'..select(1, path:gsub('ReVape/', '')), true)
