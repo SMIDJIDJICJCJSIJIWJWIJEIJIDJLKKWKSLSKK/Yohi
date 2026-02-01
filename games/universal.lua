@@ -8022,12 +8022,12 @@ run(function()
 	    end
 		table.sort(profiles, function(a, b)
 			if a.Date == b.Date then
-				return a.Index < b.Index
+				return a.Index > b.Index
 			end
 			if byNewest then
-				return a.Date > b.Date
-			else
 				return a.Date < b.Date
+			else
+				return a.Date > b.Date
 			end
 		end)
 		local order = 1
