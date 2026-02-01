@@ -8144,7 +8144,8 @@ run(function()
         create("TextLabel",{Name='date';Parent=ProfileButton;BackgroundTransparency=1;Position=UDim2.fromScale(0,0.845);Size=UDim2.new(1,0,0.153,0);Font=uipallet.Font;Text='created '..date;TextColor3=Color3.fromRGB(71,71,71);TextSize=12})
         task.wait(0.005)
         create("TextLabel",{Name='user';Parent=ProfileButton;BackgroundTransparency=1;Position=UDim2.fromOffset(0,0.064);Size=UDim2.new(1,0,0.33,0);Font=uipallet.Font;Text=Name;TextSize=14;TextColor3=Color3.fromRGB(255,255,255)})
-        ProfileFrame:SetAttribute("Profile",profile)
+		ProfileFrame:SetAttribute("IsProfile", true)
+		ProfileFrame:SetAttribute("Profile",profile)
         
 		ProfileButton.Activated:Connect(function()
             createPopup(values,ProfilesGUI,ProfileFrame)
@@ -8199,7 +8200,7 @@ run(function()
 				profile = Option.Profile,
 				name = Option.Username,
 				date = Option.Created,
-				ProfileName = Option.ProfileName,
+				ProfileName = Option.profileName,
 				See = Option.See,
 				Description = Option.Description
 			})
@@ -8455,16 +8456,20 @@ run(function()
                     TweenController(old, TweenInfo.new(0.95, Enum.EasingStyle.Sine), {BackgroundTransparency = 0})
                     TweenController(old.TextLabel, TweenInfo.new(0.55, Enum.EasingStyle.Sine), {TextColor3 = Color3.fromRGB(255, 255, 255)})
                 end)
-                for _, v in ipairs(Children:GetChildren()) do
-					if v:IsA("Frame") then
-                    	addProfile(v)
-					end
-                end
+				for _, v in ipairs(Children:GetChildren()) do
+				    if v:IsA("Frame") and v:GetAttribute("IsProfile") then
+				        addProfile(v)
+				    end
+				end
+				
 				Children.ChildAdded:Connect(function(child)
-					addProfile(child)
-					updateDisplay()
-					sortProfiles(sorted)
+				    if child:IsA("Frame") and child:GetAttribute("IsProfile") then
+				        addProfile(child)
+				        updateDisplay()
+				        sortProfiles(sorted)
+				    end
 				end)
+
 
 
 
