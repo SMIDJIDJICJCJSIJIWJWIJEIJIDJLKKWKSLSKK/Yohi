@@ -8020,13 +8020,16 @@ run(function()
 	            table.insert(hidden, profile)
 	        end
 	    end
-	    table.sort(visible, function(a, b)
-	        if byNewest then
-	            return a.Date > b.Date
-	        else
-	            return a.Date < b.Date
-	        end
-	    end)
+		table.sort(profiles, function(a, b)
+			if a.Date == b.Date then
+				return a.Index < b.Index
+			end
+			if byNewest then
+				return a.Date > b.Date
+			else
+				return a.Date < b.Date
+			end
+		end)
 		local order = 1
 	    for _, profile in ipairs(visible) do
 	        profile.Frame.LayoutOrder = order
@@ -8079,7 +8082,8 @@ run(function()
 			Frame = frame,
 			Name = nameLabel.Text,
 			Username = usernameLabel.Text,
-			Date = date
+			Date = date,
+			Index = #profiles + 1
 		})
 	end
 
