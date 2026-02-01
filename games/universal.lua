@@ -7983,7 +7983,7 @@ end)
 local uipallet = {
 	Font = "Arimo"
 }
-
+local backV2
 run(function()
     local Configs
     local TweenService = cloneref(game:GetService("TweenService"))
@@ -8259,7 +8259,7 @@ run(function()
 		local info = create("TextLabel",{Text=Name,BackgroundTransparency=1,Name='info',ZIndex=5,Position=UDim2.fromOffset(13,16),Size=UDim2.new(1,-520,0,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=15,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
 		local UserText = create("TextLabel",{Text='by '..user,BackgroundTransparency=1,Name='user',ZIndex=5,Position=UDim2.fromOffset(0,25),Size=UDim2.fromOffset(50,20),Parent=info,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=12,TextTransparency=0.7,TextXAlignment='Left',TextYAlignment='Top'})
 		if vape.role == "owner" or vape.role == "coowner" or vape.role == "admin" or values.name == vape.user then
-			local backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30,30,30),Name='back',Position=UDim2.fromOffset(381,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
+			backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30,30,30),Name='back',Position=UDim2.fromOffset(381,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
 			createC(backV2,UDim.new(0,4))
 			createS(backV2,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
 			create("TextLabel",{Parent=backV2,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
@@ -8275,7 +8275,7 @@ run(function()
 				end)
 			end
 		else
-			local backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30, 30, 30),Name='back',Position=UDim2.fromOffset(516,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
+			backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30, 30, 30),Name='back',Position=UDim2.fromOffset(516,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
 			createC(backV2,UDim.new(0,4))
 			createS(backV2,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
 			create("TextLabel",{Parent=backV2,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
