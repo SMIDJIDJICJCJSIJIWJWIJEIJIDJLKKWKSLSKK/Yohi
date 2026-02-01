@@ -8166,6 +8166,7 @@ run(function()
 				}
 
 				if configData.See then
+					print(configData,prnt)																																																																						
 					createProfile(configData, prnt)
 				end
 			end
