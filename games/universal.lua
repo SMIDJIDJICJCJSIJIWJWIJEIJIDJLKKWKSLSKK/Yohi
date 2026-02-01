@@ -8130,6 +8130,59 @@ run(function()
             end
         end
     end
+	local function createPopup(values,prnt,frame)
+     	local removeBTN = nil
+		local user = values.name
+		local date = values.created
+		local Name = values.profileName
+		local profile = values.profile
+		local desc = values.description
+		local popupFrame = create("Frame",{BorderSizePixel=0,Name="popup",Parent=ProfilesGUI,Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(0.95,0.9),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(32,32,32),ZIndex=5})
+		createS(popupFrame,'Contextual',UDim.new(0,0),'Outer',Color3.fromRGB(42,40,42),'Round','FixedSize',2,0)
+		create("Frame",{Parent=popupFrame,Name='divide1',BackgroundTransparency=0.95,BorderSizePixel=0,Position=UDim2.fromOffset(165,0),Size=UDim2.fromOffset(1,450),ZIndex=5})
+		create("Frame",{Parent=popupFrame,Name='divide2',BackgroundTransparency=0.95,BorderSizePixel=0,Position=UDim2.fromOffset(180,290),Size=UDim2.new(0.75,0,0,1),ZIndex=5})
+		local DownloadsFrame = create("Frame",{Parent=popupFrame,BackgroundColor3=Color3.fromRGB(42,40,42),Name='downloads',Position=UDim2.fromScale(0.29,0.545),Size=UDim2.fromOffset(432,25),ZIndex=5})
+		createC(DownloadsFrame,UDim.new(0,4))
+		create("TextLabel",{Text='Created on '..date,Name='Creation',AnchorPoint=Vector2.new(0.5,1),BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromScale(0.5,1),Size=UDim2.fromOffset(100,20),Parent=DownloadsFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=11,TextTransparency=0.5})
+		local CloseIMAGE = create("ImageButton",{ZIndex=5,Parent=popupFrame,ScaleType='Fit',ImageTransparency=0.5,Name="close",Position=UDim2.new(-1,35,0,9),Size=UDim2.fromOffset(24,24),BackgroundTransparency=1,Image=getcustomasset('ReVape/assets/new/close.png')})
+		createC(CloseIMAGE,UDim.new(1,0))
+		local TextButton = create("TextButton",{Parent=popupFrame,TextColor3=Color3.fromRGB(220,220,220),BackgroundColor3=Color3.fromHSV(vape.GUIColor.Hue,vape.GUIColor.Sat,vape.GUIColor.Value),ZIndex=5,Size=UDim2.fromOffset(150,70),Position=UDim2.fromOffset(188,317),Font=uipallet.Font,Text = "Download",TextSize=12})
+		createC(TextButton,UDim.new(0,4))
+		create("TextLabel",{Text='Details',BackgroundTransparency=1,Name='titledescription',ZIndex=5,Position=UDim2.fromOffset(180,16),Size=UDim2.new(1,-200,0.222,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=14,RichText=true,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
+		create("TextLabel",{Text=desc,BackgroundTransparency=1,Name='description',ZIndex=5,Position=UDim2.fromOffset(179,36),Size=UDim2.new(1,-200,0.178,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=14,RichText=true,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
+		local info = create("TextLabel",{Text=Name,BackgroundTransparency=1,Name='info',ZIndex=5,Position=UDim2.fromOffset(13,16),Size=UDim2.new(1,-520,0,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=15,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
+		local UserText = create("TextLabel",{Text='by '..user,BackgroundTransparency=1,Name='user',ZIndex=5,Position=UDim2.fromOffset(0,25),Size=UDim2.fromOffset(50,20),Parent=info,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=12,TextTransparency=0.7,TextXAlignment='Left',TextYAlignment='Top'})
+		if vape.role == "owner" or vape.role == "coowner" or vape.role == "admin" or values.name == vape.user then
+			backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30,30,30),Name='back',Position=UDim2.fromOffset(381,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
+			createC(backV2,UDim.new(0,4))
+			createS(backV2,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
+			create("TextLabel",{Parent=backV2,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
+			removeBTN =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(136, 57, 57),Name='remove',Position=UDim2.fromOffset(574,317),Size=UDim2.fromOffset(111,70),Font=uipallet.Font,Text=''})
+			createC(removeBTN,UDim.new(0,4))
+			createS(removeBTN,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
+			create("TextLabel",{Parent=removeBTN,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='REMOVE',TextColor3=Color3.fromRGB(241, 241, 241),TextSize=12})	
+			if removeBTN then
+				removeBTN.Activated:Connect(function()
+					task.wait(.5)
+					RequestURL("DELETE",frame)
+					popupFrame:Destroy()
+				end)
+			end
+		else
+			backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30, 30, 30),Name='back',Position=UDim2.fromOffset(516,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
+			createC(backV2,UDim.new(0,4))
+			createS(backV2,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
+			create("TextLabel",{Parent=backV2,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
+			removeBTN = nil
+		end
+		TextButton.Activated:Connect(function()
+           	DownloadConfig(profile,Name,user)
+        end)
+		backV2.Activated:Connect(function()
+           popupFrame:Destroy()
+        end)
+	end																																																																						
+																																																																								
 	local function createProfile(values,prnt)
         local user = values.name
         local date = values.created
@@ -8237,58 +8290,7 @@ run(function()
 		end
 	end
 
-	local function createPopup(values,prnt,frame)
-     	local removeBTN = nil
-		local user = values.name
-		local date = values.created
-		local Name = values.profileName
-		local profile = values.profile
-		local desc = values.description
-		local popupFrame = create("Frame",{BorderSizePixel=0,Name="popup",Parent=ProfilesGUI,Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromScale(0.95,0.9),AnchorPoint=Vector2.new(0.5,0.5),BackgroundColor3=Color3.fromRGB(32,32,32),ZIndex=5})
-		createS(popupFrame,'Contextual',UDim.new(0,0),'Outer',Color3.fromRGB(42,40,42),'Round','FixedSize',2,0)
-		create("Frame",{Parent=popupFrame,Name='divide1',BackgroundTransparency=0.95,BorderSizePixel=0,Position=UDim2.fromOffset(165,0),Size=UDim2.fromOffset(1,450),ZIndex=5})
-		create("Frame",{Parent=popupFrame,Name='divide2',BackgroundTransparency=0.95,BorderSizePixel=0,Position=UDim2.fromOffset(180,290),Size=UDim2.new(0.75,0,0,1),ZIndex=5})
-		local DownloadsFrame = create("Frame",{Parent=popupFrame,BackgroundColor3=Color3.fromRGB(42,40,42),Name='downloads',Position=UDim2.fromScale(0.29,0.545),Size=UDim2.fromOffset(432,25),ZIndex=5})
-		createC(DownloadsFrame,UDim.new(0,4))
-		create("TextLabel",{Text='Created on '..date,Name='Creation',AnchorPoint=Vector2.new(0.5,1),BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromScale(0.5,1),Size=UDim2.fromOffset(100,20),Parent=DownloadsFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=11,TextTransparency=0.5})
-		local CloseIMAGE = create("ImageButton",{ZIndex=5,Parent=popupFrame,ScaleType='Fit',ImageTransparency=0.5,Name="close",Position=UDim2.new(-1,35,0,9),Size=UDim2.fromOffset(24,24),BackgroundTransparency=1,Image=getcustomasset('ReVape/assets/new/close.png')})
-		createC(CloseIMAGE,UDim.new(1,0))
-		local TextButton = create("TextButton",{Parent=popupFrame,TextColor3=Color3.fromRGB(220,220,220),BackgroundColor3=Color3.fromHSV(vape.GUIColor.Hue,vape.GUIColor.Sat,vape.GUIColor.Value),ZIndex=5,Size=UDim2.fromOffset(150,70),Position=UDim2.fromOffset(188,317),Font=uipallet.Font,Text = "Download",TextSize=12})
-		createC(TextButton,UDim.new(0,4))
-		create("TextLabel",{Text='Details',BackgroundTransparency=1,Name='titledescription',ZIndex=5,Position=UDim2.fromOffset(180,16),Size=UDim2.new(1,-200,0.222,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=14,RichText=true,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
-		create("TextLabel",{Text=desc,BackgroundTransparency=1,Name='description',ZIndex=5,Position=UDim2.fromOffset(179,36),Size=UDim2.new(1,-200,0.178,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=14,RichText=true,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
-		local info = create("TextLabel",{Text=Name,BackgroundTransparency=1,Name='info',ZIndex=5,Position=UDim2.fromOffset(13,16),Size=UDim2.new(1,-520,0,20),Parent=popupFrame,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=15,TextTruncate='SplitWord',TextXAlignment='Left',TextYAlignment='Top'})
-		local UserText = create("TextLabel",{Text='by '..user,BackgroundTransparency=1,Name='user',ZIndex=5,Position=UDim2.fromOffset(0,25),Size=UDim2.fromOffset(50,20),Parent=info,Font=uipallet.Font,TextColor3=Color3.fromRGB(220,220,220),TextSize=12,TextTransparency=0.7,TextXAlignment='Left',TextYAlignment='Top'})
-		if vape.role == "owner" or vape.role == "coowner" or vape.role == "admin" or values.name == vape.user then
-			backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30,30,30),Name='back',Position=UDim2.fromOffset(381,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
-			createC(backV2,UDim.new(0,4))
-			createS(backV2,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
-			create("TextLabel",{Parent=backV2,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
-			removeBTN =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(136, 57, 57),Name='remove',Position=UDim2.fromOffset(574,317),Size=UDim2.fromOffset(111,70),Font=uipallet.Font,Text=''})
-			createC(removeBTN,UDim.new(0,4))
-			createS(removeBTN,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
-			create("TextLabel",{Parent=removeBTN,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='REMOVE',TextColor3=Color3.fromRGB(241, 241, 241),TextSize=12})	
-			if removeBTN then
-				removeBTN.Activated:Connect(function()
-					task.wait(.5)
-					RequestURL("DELETE",frame)
-					popupFrame:Destroy()
-				end)
-			end
-		else
-			backV2 =create("TextButton",{Parent=popupFrame,BackgroundTransparency=0,ZIndex=5,BackgroundColor3=Color3.fromRGB(30, 30, 30),Name='back',Position=UDim2.fromOffset(516,317),Size=UDim2.fromOffset(150,70),Font=uipallet.Font,Text=''})
-			createC(backV2,UDim.new(0,4))
-			createS(backV2,"Border",UDim.new(0,0),"Outer",Color3.fromRGB(36, 34, 36),'Round','FixedSize',2,0)
-			create("TextLabel",{Parent=backV2,BackgroundTransparency=1,ZIndex=5,Position=UDim2.fromOffset(0,0),Size=UDim2.fromScale(1,1),Font=uipallet.Font,Text='BACK',TextColor3=Color3.fromRGB(68, 68, 68),TextSize=12})
-			removeBTN = nil
-		end
-		TextButton.Activated:Connect(function()
-           	DownloadConfig(profile,Name,user)
-        end)
-		backV2.Activated:Connect(function()
-           popupFrame:Destroy()
-        end)
-	end
+	
 
     
 
