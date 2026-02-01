@@ -8584,7 +8584,7 @@ run(function()
 		end
 
 		if LegitAura.Enabled or ClosetMode.Enabled then
-			if (tick() - bedwars.SwordController.lastSwing) >= 0.23 then
+			if (tick() - bedwars.SwordController.lastSwing) >= 0.2 then
 				CanHit = false
 				return false 
 			else
